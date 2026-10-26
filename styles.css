@@ -23,7 +23,10 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--menubar) + 24px); overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--menubar) + 24px); }
+/* Clip sideways overflow on the content, not on html: clipping html turns body into its own
+   (unscrollable) scroll box, and Safari then drops scrolls that start over the fixed notch. */
+main, .foot { overflow-x: clip; }
 body {
   margin: 0;
   background: var(--paper);
@@ -71,6 +74,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- The notch (fixed, top center) ---------- */
 .notch {
+  touch-action: pan-y;
   position: fixed; top: 0; left: 50%; z-index: 60;
   width: 190px; height: 34px;
   transform: translateX(-50%);

@@ -135,6 +135,12 @@
   });
   document.addEventListener("pointerdown", (e) => { if (nState === "open" && !notch.contains(e.target)) setNotch("closed"); });
   addEventListener("resize", () => { const g = geo[nState](); wS.set(g.w); hS.set(g.h); });
+  // Scrolling away closes the open notch (unless the mouse is resting on it), so it never sits over the page.
+  let openScrollY = 0;
+  addEventListener("scroll", () => {
+    if (nState !== "open") { openScrollY = scrollY; return; }
+    if (!notch.matches(":hover") && Math.abs(scrollY - openScrollY) > 40) setNotch("closed");
+  }, { passive: true });
 
   function peek(html, ms = 2600) {
     if (nState === "open") { toast(html.replace(/<[^>]+>/g, "")); return; }
@@ -151,7 +157,9 @@
     { t: "Spring Loaded", a: "Bounce 0.26", al: "Overshoot", len: 176, g: ["#ffdd33", "#ff7a1a", "#ff2e6e"], sun: "#fff6e3" },
     { t: "Notch Me If You Can", a: "The Menubar Band", al: "Live at 0% CPU", len: 224, g: ["#15111f", "#3355ff", "#b69cff"], sun: "#3ee6a8" },
   ];
-  let ti = 0, pos = 82, playing = true;
+  // Starts paused: browsers only allow sound after a click, so play is the first thing people press.
+  let ti = 0, pos = 0, playing = false, heardOnce = false;
+  const chip = window.LacyChip;
   const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
   function paintTrack(announce) {
     const k = tracks[ti];
@@ -168,22 +176,42 @@
     const k = tracks[ti], p = (pos / k.len) * 100 + "%";
     $("#npFill").style.width = p; $("#dpFill").style.width = p; $("#npTime").textContent = fmt(pos);
   }
+  let songStep = 0;
   function setPlaying(v) {
     playing = v;
-    for (const b of $$('[data-np="play"]')) b.innerHTML = ic(v ? "pause" : "play");
+    for (const b of $$('[data-np="play"]')) {
+      b.innerHTML = ic(v ? "pause" : "play");
+      b.setAttribute("aria-label", v ? "Pause" : "Play");
+    }
     document.body.classList.toggle("is-paused", !v);
+    if (!chip) return;
+    if (v) {
+      chip.play(ti, songStep);
+      if (!heardOnce) { heardOnce = true; toast("Sound on: original chiptunes, made for Lacy"); }
+    } else songStep = chip.pause();
   }
-  function skip(d) { ti = (ti + d + tracks.length) % tracks.length; pos = 0; paintTrack(true); paintPos(); }
+  function skip(d) {
+    ti = (ti + d + tracks.length) % tracks.length; pos = 0; songStep = 0;
+    paintTrack(true); paintPos();
+    if (playing && chip) chip.play(ti, 0);
+  }
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-np]");
     if (!b) return;
     const a = b.dataset.np;
     if (a === "play") setPlaying(!playing);
     if (a === "next") skip(1);
-    if (a === "prev") pos > 3 ? (pos = 0, paintPos()) : skip(-1);
+    if (a === "prev") {
+      if (pos > 3) { pos = 0; songStep = 0; paintPos(); if (playing && chip) chip.play(ti, 0); }
+      else skip(-1);
+    }
   });
   setInterval(() => { if (!playing) return; pos++; if (pos >= tracks[ti].len) skip(1); paintPos(); }, 1000);
-  paintTrack(false); paintPos();
+  paintTrack(false); paintPos(); setPlaying(false);
+  if (chip) {
+    chip.setVolume(+$("#vol").value);
+    document.addEventListener("visibilitychange", () => { if (!playing) return; document.hidden ? chip.suspend() : chip.resume(); });
+  }
 
   /* ---------- Cartoon laptop notch ---------- */
   const ln = $("#lnotch");
@@ -401,6 +429,7 @@
   function scrollPeekIntoView() { /* the notch is fixed, so it's always visible */ }
   $("#vol").addEventListener("input", (e) => {
     const v = +e.target.value;
+    if (chip) chip.setVolume(v);
     peek(`<span>${ic(v === 0 ? "speaker-0" : v < 50 ? "speaker-1" : "speaker-3")}</span><span class="peek__bar"><i style="width:${v}%;background:#fff"></i></span><b>${v}</b>`, 1200);
   });
 

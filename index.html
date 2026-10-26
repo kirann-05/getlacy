@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff6e3">
+<link rel="canonical" href="https://kirann-05.github.io/getlacy/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23ff4fa3' stroke='%2315111f' stroke-width='1.2'%3E%3Ccircle cx='12' cy='6.2' r='3.9'/%3E%3Ccircle cx='17.5' cy='10.2' r='3.9'/%3E%3Ccircle cx='15.4' cy='16.6' r='3.9'/%3E%3Ccircle cx='8.6' cy='16.6' r='3.9'/%3E%3Ccircle cx='6.5' cy='10.2' r='3.9'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='3' fill='%23ffdd33'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lacy">
+<meta property="og:title" content="Lacy · Your notch, alive">
+<meta property="og:description" content="Music, calendar, a file shelf, Ask, Snake and tools, all living in your Mac's notch. Free beta for macOS 14+.">
+<meta property="og:url" content="https://kirann-05.github.io/getlacy/">
+<meta property="og:image" content="https://kirann-05.github.io/getlacy/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kirann-05.github.io/getlacy/og.jpg">
+<title>Lacy · Your notch, alive</title>
+<meta name="description" content="Lacy turns your Mac's notch into a tiny, springy stage: now playing, calendar, shelf, Ask, Snake and tools. Free beta for macOS 14+.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Silkscreen:wght@400;700&family=VT323&family=Permanent+Marker&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Icon sprite: SF-style glyphs drawn for Lacy (24×24, currentColor). -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.6v14.8c0 .9 1 1.4 1.7.9l11.2-7.4a1.1 1.1 0 0 0 0-1.8L8.7 3.7C8 3.2 7 3.7 7 4.6z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16" rx="1.6"/><rect x="14" y="4" width="5" height="16" rx="1.6"/></symbol>
+    <symbol id="i-forward" viewBox="0 0 24 24"><path d="M1.5 6.3v11.4c0 .8.9 1.2 1.5.7l8.5-5.6v5c0 .8.9 1.2 1.5.7l8.6-5.8a.9.9 0 0 0 0-1.4L13 5.5c-.6-.5-1.5-.1-1.5.7v5L3 5.6c-.6-.5-1.5-.1-1.5.7z"/></symbol>
+    <symbol id="i-backward" viewBox="0 0 24 24"><path transform="matrix(-1 0 0 1 24 0)" d="M1.5 6.3v11.4c0 .8.9 1.2 1.5.7l8.5-5.6v5c0 .8.9 1.2 1.5.7l8.6-5.8a.9.9 0 0 0 0-1.4L13 5.5c-.6-.5-1.5-.1-1.5.7v5L3 5.6c-.6-.5-1.5-.1-1.5.7z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2.2 4.9 13.3c-.3.4 0 1 .5 1H11l-1.4 7.2c-.1.5.6.8.9.4l8.6-11c.3-.4 0-1-.5-1H13l1.9-7.2c.1-.5-.6-.8-.9-.5z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.6 14.6A8.6 8.6 0 0 1 9.4 3.4a8.8 8.8 0 1 0 11.2 11.2z"/></symbol>
+    <symbol id="i-airpods" viewBox="0 0 24 24"><circle cx="6.8" cy="7.4" r="4.3"/><rect x="7.2" y="8" width="2.8" height="12.5" rx="1.4"/><circle cx="17.2" cy="7.4" r="4.3"/><rect x="14" y="8" width="2.8" height="12.5" rx="1.4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="2.4"/><rect x="7" y="2.5" width="2.2" height="4" rx="1.1"/><rect x="14.8" y="2.5" width="2.2" height="4" rx="1.1"/><rect x="7" y="12.5" width="3" height="3" rx=".8"/><rect x="10.5" y="12.5" width="3" height="3" rx=".8"/><rect x="14" y="12.5" width="3" height="3" rx=".8"/><rect x="7" y="16" width="3" height="3" rx=".8"/></symbol>
+    <symbol id="i-battery-low" viewBox="0 0 24 24"><rect x="1.8" y="7" width="18.4" height="10" rx="2.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="21.2" y="10" width="1.8" height="4" rx=".9"/><rect x="4" y="9.2" width="4" height="5.6" rx="1.1"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="1.8" y="7" width="18.4" height="10" rx="2.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="21.2" y="10" width="1.8" height="4" rx=".9"/><rect x="4" y="9.2" width="14" height="5.6" rx="1.1"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 13.5V9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="9.5" y="1.8" width="5" height="2.4" rx="1.2"/><path d="m18.3 5.6 1.6 1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24"><path d="M3.5 7.5h13v5.3a5.2 5.2 0 0 1-5.2 5.2H8.7a5.2 5.2 0 0 1-5.2-5.2z"/><circle cx="17.6" cy="11" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="2" y="19.4" width="17" height="2.2" rx="1.1"/><path d="M7.5 2.5c-.8 1 .8 1.6 0 2.8M11.5 2.5c-.8 1 .8 1.6 0 2.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="4.5" y="4" width="15" height="18" rx="2.8" fill="none" stroke="currentColor" stroke-width="2"/><rect x="8.5" y="2" width="7" height="4.5" rx="1.6"/><path d="M8 11h8M8 14.5h8M8 18h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-eyedropper" viewBox="0 0 24 24"><path d="M20 4a2.8 2.8 0 0 0-4 0l-2.6 2.6-1-1-1.6 1.6 1 1-7 7c-.4.4-.6 1-.6 1.6v1.4l-1 1 1.4 1.4 1-1h1.4c.6 0 1.2-.2 1.6-.6l7-7 1 1 1.6-1.6-1-1L20 8a2.8 2.8 0 0 0 0-4z"/></symbol>
+    <symbol id="i-mirror" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3.2"/><path d="M6.2 19c.8-2.9 3-4.5 5.8-4.5s5 1.6 5.8 4.5z"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M11 4.2H6.2a3 3 0 0 0-3 3v10.6a3 3 0 0 0 3 3h10.6a3 3 0 0 0 3-3V13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18.3 2.7a2.1 2.1 0 0 1 3 3l-9.1 9.1-4 1 1-4z"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 7h2.8l1.5-2.2c.3-.5.8-.8 1.4-.8h4.6c.6 0 1.1.3 1.4.8L17.2 7H20a2 2 0 0 1 2 2v9.2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm8 2.6a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></symbol>
+    <symbol id="i-speaker-0" viewBox="0 0 24 24"><path d="M2.5 9.6v4.8c0 .6.4 1 1 1h3l4.5 3.9c.6.5 1.6.1 1.6-.8V5.5c0-.9-1-1.3-1.6-.8L6.5 8.6h-3c-.6 0-1 .4-1 1z"/><path d="m16 9 5.5 6m0-6L16 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-speaker-1" viewBox="0 0 24 24"><path d="M2.5 9.6v4.8c0 .6.4 1 1 1h3l4.5 3.9c.6.5 1.6.1 1.6-.8V5.5c0-.9-1-1.3-1.6-.8L6.5 8.6h-3c-.6 0-1 .4-1 1z"/><path d="M15.8 9.3a4 4 0 0 1 0 5.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-speaker-3" viewBox="0 0 24 24"><path d="M2.5 9.6v4.8c0 .6.4 1 1 1h3l4.5 3.9c.6.5 1.6.1 1.6-.8V5.5c0-.9-1-1.3-1.6-.8L6.5 8.6h-3c-.6 0-1 .4-1 1z"/><path d="M15.8 9.3a4 4 0 0 1 0 5.4M18.4 6.8a7.6 7.6 0 0 1 0 10.4M21 4.4a11 11 0 0 1 0 15.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M19 3.3v11.9a3.3 3.3 0 1 1-2.2-3.1V7.6l-8 1.8v8.3a3.3 3.3 0 1 1-2.2-3.1V6.4c0-.6.4-1 .9-1.1l10.3-2.4c.6-.1 1.2.3 1.2 1z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6.5 2h7.2c.5 0 1 .2 1.4.6l4.3 4.3c.4.4.6.9.6 1.4V19.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+    <symbol id="i-tray" viewBox="0 0 24 24"><path d="M2.5 13.5h5.3l1.6 2.6h5.2l1.6-2.6h5.3v5a2.5 2.5 0 0 1-2.5 2.5h-14A2.5 2.5 0 0 1 2.5 18.5z"/><path d="M12 3v9m-3.8-3.8L12 12l3.8-3.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.4 3.6 8.3 9 9-5.4.7-8.3 3.6-9 9-.7-5.4-3.6-8.3-9-9 5.4-.7 8.3-3.6 9-9z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.3 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.1l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></symbol>
+    <symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="6.2" r="3.9"/><circle cx="17.5" cy="10.2" r="3.9"/><circle cx="15.4" cy="16.6" r="3.9"/><circle cx="8.6" cy="16.6" r="3.9"/><circle cx="6.5" cy="10.2" r="3.9"/></symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24"><path d="M21 3a1.3 1.3 0 0 0-1.8 0l-9 8.6 2.2 2.2L21 4.8A1.3 1.3 0 0 0 21 3z"/><path d="M8.6 12.8c-2.2 0-3.9 1.7-3.9 3.9 0 1.3-.9 2.4-2.2 2.8 1.1 1 2.5 1.4 4 1.4 2.8 0 5-2.2 5-5z"/></symbol>
+    <symbol id="i-checker" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 3h6v6H3zM15 3h6v6h-6zM9 9h6v6H9zM3 15h6v6H3zM15 15h6v6h-6z"/></symbol>
+    <symbol id="i-spray" viewBox="0 0 24 24"><rect x="6" y="8.5" width="9" height="13.5" rx="2.4"/><rect x="8.3" y="4.6" width="4.4" height="3" rx="1"/><circle cx="17.5" cy="4" r="1.1"/><circle cx="20.4" cy="6" r="1.1"/><circle cx="17.6" cy="7.6" r="1.1"/><circle cx="20.6" cy="2.4" r="1.1"/></symbol>
+    <symbol id="i-eraser" viewBox="0 0 24 24"><path d="M14.6 3.4a2 2 0 0 1 2.8 0l3.8 3.8a2 2 0 0 1 0 2.8L11.6 19.6H19v2H8.6l-5-5a2 2 0 0 1 0-2.8z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M9.2 2.5h5.6c.5 0 .9.3 1 .7l.6 1.8H20a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2h3.6l.6-1.8c.1-.4.5-.7 1-.7zM5.4 8.5h13.2l-1 11.6a2.2 2.2 0 0 1-2.2 2H8.6a2.2 2.2 0 0 1-2.2-2z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v11.5m-4.5-4.5 4.5 4.5 4.5-4.5M4.5 15.5v2.8A2.7 2.7 0 0 0 7.2 21h9.6a2.7 2.7 0 0 0 2.7-2.7v-2.8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15.5m-6.5-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-return" viewBox="0 0 24 24"><path d="M20 4.5v6a3 3 0 0 1-3 3H5m4.5-4.5L5 13.5 9.5 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 5.2 20.5 18h-17z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 18.8 3.5 6h17z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M5.2 12 18 3.5v17z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M18.8 12 6 3.5v17z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ MENU BAR + THE NOTCH ============ -->
+<header class="menubar" id="top">
+  <nav class="menubar__left" aria-label="Main">
+    <a class="menubar__logo" href="#top" aria-label="Lacy home"><svg class="i" aria-hidden="true"><use href="#i-flower"/></svg></a>
+    <a href="#top" class="menubar__name"><b>Lacy</b></a>
+    <a href="#features">Features</a>
+    <a href="#springs">Springs</a>
+    <a href="#paint">Paint</a>
+    <a href="#snake">Snake</a>
+    <a href="#faq">Help</a>
+  </nav>
+  <div class="menubar__right">
+    <span class="menubar__bat" aria-hidden="true"><i></i></span>
+    <span id="clock" class="menubar__clock">--:--</span>
+    <a class="menubar__cta" href="#download">Get<span class="hide-xs"> beta</span></a>
+  </div>
+</header>
+
+<div class="notch" id="notch" tabindex="0" role="button" aria-label="The notch. Hover or press to open">
+  <div class="notch__eyes" aria-hidden="true"><span class="eye"><i></i></span><span class="eye"><i></i></span></div>
+  <div class="notch__peek" id="notchPeek"></div>
+  <div class="notch__open">
+    <div class="np">
+      <div class="np__art" aria-hidden="true"><span></span></div>
+      <div class="np__meta">
+        <div class="np__title" id="npTitle">Bubblegum Sunrise</div>
+        <div class="np__artist" id="npArtist">The Floppy Disks · Insert Disk 2</div>
+      </div>
+      <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="np__bar"><span id="npTime">1:22</span><div class="np__track"><div class="np__fill" id="npFill"></div></div><span>3:58</span></div>
+    <div class="np__ctrls">
+      <button class="np__btn" data-np="prev" aria-label="Previous track"><svg class="i" aria-hidden="true"><use href="#i-backward"/></svg></button>
+      <button class="np__btn np__btn--big" data-np="play" aria-label="Play or pause"><svg class="i" aria-hidden="true"><use href="#i-pause"/></svg></button>
+      <button class="np__btn" data-np="next" aria-label="Next track"><svg class="i" aria-hidden="true"><use href="#i-forward"/></svg></button>
+    </div>
+    <div class="np__dots" aria-hidden="true"><b></b><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</div>
+
+<canvas id="sparkles" class="sparkles" aria-hidden="true"></canvas>
+
+<main>
+<!-- ============ HERO DESKTOP ============ -->
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="hero__checker" aria-hidden="true"></div>
+  <div class="hero__sun" aria-hidden="true"></div>
+
+  <div class="hero__copy">
+    <p class="kicker"><span><svg class="i" aria-hidden="true"><use href="#i-star"/></svg> System 0.9 <svg class="i" aria-hidden="true"><use href="#i-star"/></svg></span> a free beta for macOS 14+</p>
+    <h1 id="heroTitle" class="mega">
+      <span class="mega__line" data-split>YOUR NOTCH,</span>
+      <span class="mega__line mega__line--b" data-split>ALIVE!</span>
+    </h1>
+    <p class="hero__lede">Lacy turns the black rectangle at the top of your Mac into a tiny, springy stage. Music, your calendar, a file shelf, an AI question box, Snake and a drawer of tools all live up there. <mark>Point at the notch above ↑ and see.</mark></p>
+    <div class="hero__ctas">
+      <a href="#download" class="btn btn--pink"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Insert Disk · Download beta</a>
+      <a href="#features" class="btn btn--paper">Take the tour <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </div>
+
+  <!-- cartoon laptop -->
+  <div class="laptop" aria-label="Illustration: a cartoon laptop whose notch opens into a music player">
+    <div class="laptop__screen">
+      <div class="laptop__wall" aria-hidden="true"></div>
+      <button class="lnotch" id="lnotch" aria-label="Open the cartoon notch">
+        <span class="lnotch__eyes" aria-hidden="true"><span class="eye"><i></i></span><span class="eye"><i></i></span></span>
+        <span class="lnotch__inner" aria-hidden="true">
+          <span class="lnotch__art"></span>
+          <span class="lnotch__txt"><b>Bubblegum Sunrise</b><small>The Floppy Disks</small></span>
+          <span class="eq eq--sm"><i></i><i></i><i></i><i></i></span>
+        </span>
+      </button>
+      <div class="laptop__hint" aria-hidden="true">click me!</div>
+      <div class="win win--mini laptop__win1" aria-hidden="true"><div class="win__bar"><span class="win__close"></span><span class="win__title">Hello</span></div><div class="win__body pixel">Welcome to<br>Lacy.</div></div>
+      <div class="win win--mini laptop__win2" aria-hidden="true"><div class="win__bar"><span class="win__close"></span><span class="win__title">Shelf</span></div><div class="win__body"><span class="doc"></span><span class="doc doc--b"></span></div></div>
+    </div>
+    <div class="laptop__base"><span></span></div>
+  </div>
+
+  <!-- desktop icons -->
+  <ul class="icons" aria-label="Jump to a feature">
+    <li><a href="#f-player" class="dicon"><span class="dicon__img ic-note"><svg class="i" aria-hidden="true"><use href="#i-music"/></svg></span><span class="dicon__lbl">Now Playing</span></a></li>
+    <li><a href="#f-calendar" class="dicon"><span class="dicon__img ic-cal"><b>27</b></span><span class="dicon__lbl">Calendar</span></a></li>
+    <li><a href="#f-shelf" class="dicon"><span class="dicon__img ic-folder"></span><span class="dicon__lbl">Shelf</span></a></li>
+    <li><a href="#f-ask" class="dicon"><span class="dicon__img ic-chat"></span><span class="dicon__lbl">Ask</span></a></li>
+    <li><a href="#snake" class="dicon"><span class="dicon__img ic-snake"></span><span class="dicon__lbl">Snake</span></a></li>
+    <li><a href="#paint" class="dicon"><span class="dicon__img ic-paint"><svg class="i" aria-hidden="true"><use href="#i-brush"/></svg></span><span class="dicon__lbl">LacyPaint</span></a></li>
+    <li><button class="dicon" id="trash" type="button"><span class="dicon__img ic-trash"></span><span class="dicon__lbl">Trash</span></button></li>
+  </ul>
+
+  <!-- draggable stickers -->
+  <div class="stickers" aria-hidden="true">
+    <div class="sticker burst burst--yellow" style="--x:44%;--y:58%;--r:-12deg">FREE<br>BETA!</div>
+    <div class="sticker pill pill--mint" style="--x:44%;--y:84%;--r:6deg">0.0% CPU idle</div>
+    <div class="sticker circle circle--blue" style="--x:78%;--y:80%;--r:14deg">31<small>MB</small></div>
+    <div class="sticker star" style="--x:30%;--y:3%;--r:10deg"></div>
+    <div class="sticker smiley" style="--x:3%;--y:84%;--r:-8deg"></div>
+    <div class="sticker floppy" style="--x:70%;--y:2%;--r:-14deg"><span>LACY</span></div>
+    <div class="sticker cassette" style="--x:24%;--y:88%;--r:-4deg"></div>
+    <div class="sticker bolt" style="--x:84%;--y:44%;--r:12deg"></div>
+    <div class="sticker pill pill--pink" style="--x:60%;--y:92%;--r:-7deg">springs <svg class="i" aria-hidden="true"><use href="#i-check"/></svg> bounce 0.26</div>
+  </div>
+  <p class="hero__drag pixel" aria-hidden="true">psst… the stickers are draggable</p>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>NOW PLAYING <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> CALENDAR <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> SHELF <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> ASK <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> SNAKE <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> TOOLS <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> HUDS <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> LIVE ACTIVITIES <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> LOCK SCREEN <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> ZERO POLLING <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg>&nbsp;</span>
+    <span>NOW PLAYING <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> CALENDAR <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> SHELF <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> ASK <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> SNAKE <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> TOOLS <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> HUDS <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> LIVE ACTIVITIES <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> LOCK SCREEN <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg> ZERO POLLING <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg>&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features" aria-labelledby="featTitle">
+  <div class="sect-head">
+    <span class="tape">Control Panels</span>
+    <h2 id="featTitle" class="title">Six pages.<br><em>One notch.</em></h2>
+    <p class="sect-head__sub">Swipe with two fingers and the notch flips between pages. Every window below is a working toy, so poke them.</p>
+  </div>
+
+  <div class="grid">
+    <!-- Player -->
+    <article class="win win--tilt1" id="f-player">
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Now Playing</span></div>
+      <div class="win__body">
+        <div class="demo-player">
+          <div class="dp__art" id="dpArt"><span></span></div>
+          <div class="dp__meta"><b id="dpTitle">Bubblegum Sunrise</b><small id="dpArtist">The Floppy Disks</small>
+            <div class="dp__track"><div class="dp__fill" id="dpFill"></div></div>
+            <div class="dp__ctrls"><button data-np="prev" aria-label="Previous"><svg class="i" aria-hidden="true"><use href="#i-backward"/></svg></button><button data-np="play" aria-label="Play or pause" class="big"><svg class="i" aria-hidden="true"><use href="#i-pause"/></svg></button><button data-np="next" aria-label="Next"><svg class="i" aria-hidden="true"><use href="#i-forward"/></svg></button></div>
+          </div>
+        </div>
+        <p>Spotify, Music, YouTube in your browser, podcasts, video players. Real artwork, a scrubber, and a waveform tinted to match the cover. Swipe the closed notch to skip.</p>
+      </div>
+    </article>
+
+    <!-- Calendar -->
+    <article class="win win--tilt2" id="f-calendar">
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Calendar</span></div>
+      <div class="win__body">
+        <div class="cal">
+          <div class="cal__head"><b id="calWeekday">Tuesday</b><span id="calMonth">OCT</span></div>
+          <div class="cal__grid" id="calGrid"></div>
+          <div class="cal__events" id="calEvents"></div>
+        </div>
+        <p>Today's next events, in each calendar's colour. Tap a day to peek at it. Lacy waves at you five minutes before a meeting.</p>
+      </div>
+    </article>
+
+    <!-- Shelf -->
+    <article class="win win--tilt3" id="f-shelf">
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Shelf</span></div>
+      <div class="win__body">
+        <div class="shelf">
+          <div class="shelf__files">
+            <div class="file" draggable="true" data-name="mixtape.mp3"><span class="file__ic file__ic--a"></span>mixtape.mp3</div>
+            <div class="file" draggable="true" data-name="zine.pdf"><span class="file__ic file__ic--b"></span>zine.pdf</div>
+            <div class="file" draggable="true" data-name="cat.gif"><span class="file__ic file__ic--c"></span>cat.gif</div>
+          </div>
+          <div class="shelf__drop" id="shelfDrop"><span>drag a file up here ↑</span></div>
+        </div>
+        <p>Drag files toward the notch and they wait on the shelf, with Quick Look thumbnails, drag-out and AirDrop.</p>
+      </div>
+    </article>
+
+    <!-- Ask -->
+    <article class="win win--tilt2" id="f-ask">
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Ask</span></div>
+      <div class="win__body">
+        <form class="ask" id="askForm" autocomplete="off">
+          <div class="ask__apps" role="radiogroup" aria-label="AI app">
+            <button type="button" class="chip is-on">Claude</button><button type="button" class="chip">ChatGPT</button><button type="button" class="chip">Perplexity</button><button type="button" class="chip">Google AI</button>
+          </div>
+          <div class="ask__row"><input id="askInput" type="text" placeholder="why is the sky so pink today?" aria-label="Your question"><button class="btn btn--small" type="submit">Ask <svg class="i" aria-hidden="true"><use href="#i-return"/></svg></button></div>
+          <div class="ask__out pixel" id="askOut" aria-live="polite">⌃⌥Space from anywhere</div>
+        </form>
+        <p>Type a question in the notch and send it to the AI app you already use. Lacy just hands it over (this demo doesn't send anything).</p>
+      </div>
+    </article>
+
+    <!-- Live activities -->
+    <article class="win win--tilt1" id="f-live">
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Live Activities</span></div>
+      <div class="win__body">
+        <div class="live">
+          <button class="live__b" data-live="charge"><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg> Plug in</button>
+          <button class="live__b" data-live="pods"><svg class="i" aria-hidden="true"><use href="#i-airpods"/></svg> AirPods</button>
+          <button class="live__b" data-live="focus"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg> Focus</button>
+          <button class="live__b" data-live="meet"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg> Meeting</button>
+          <button class="live__b" data-live="low"><svg class="i" aria-hidden="true"><use href="#i-battery-low"/></svg> Low battery</button>
+          <button class="live__b" data-live="timer"><svg class="i" aria-hidden="true"><use href="#i-timer"/></svg> Timer</button>
+        </div>
+        <label class="hud">Volume HUD <input type="range" min="0" max="100" value="60" id="vol"></label>
+        <p>Press a button and watch the real notch at the very top of this page. Charging, AirPods, Focus, meetings, low battery, timers, plus volume and brightness HUDs.</p>
+      </div>
+    </article>
+
+    <!-- Tools -->
+    <article class="win win--tilt3" id="f-tools">
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Tools</span></div>
+      <div class="win__body">
+        <div class="tools">
+          <button class="tool" data-tool="Timer" data-icon="timer"><svg class="i" aria-hidden="true"><use href="#i-timer"/></svg><span>Timer</span></button>
+          <button class="tool" data-tool="Keep Awake" data-icon="cup"><svg class="i" aria-hidden="true"><use href="#i-cup"/></svg><span>Awake</span></button>
+          <button class="tool" data-tool="Clipboard" data-icon="clipboard"><svg class="i" aria-hidden="true"><use href="#i-clipboard"/></svg><span>Clipboard</span></button>
+          <button class="tool" data-tool="Color" data-icon="eyedropper"><svg class="i" aria-hidden="true"><use href="#i-eyedropper"/></svg><span>Color</span></button>
+          <button class="tool" data-tool="Mirror" data-icon="mirror"><svg class="i" aria-hidden="true"><use href="#i-mirror"/></svg><span>Mirror</span></button>
+          <button class="tool" data-tool="Note" data-icon="note"><svg class="i" aria-hidden="true"><use href="#i-note"/></svg><span>Note</span></button>
+          <button class="tool" data-tool="Screenshot" data-icon="camera"><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg><span>Shot</span></button>
+        </div>
+        <p>The last page is a toolbox. Each tool sleeps until you use it. Clipboard history is opt-in and skips password-manager items.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ SPRINGS ============ -->
+<section class="springs" id="springs" aria-labelledby="springTitle">
+  <div class="springs__copy">
+    <span class="tape tape--blue">Motion Lab</span>
+    <h2 id="springTitle" class="title title--light">Everything<br><em>boings.</em></h2>
+    <p>Every animation in Lacy is a spring. Opening overshoots a little (bounce 0.26). Closing settles with no wobble. Grab a spring halfway and it keeps its speed. If you turn on Reduce Motion, Lacy cross-fades instead.</p>
+    <div class="knobs">
+      <label>bounce <output id="bOut">0.26</output><input type="range" id="bounce" min="0" max="0.7" step="0.01" value="0.26"></label>
+      <label>duration <output id="dOut">0.45s</output><input type="range" id="dur" min="0.15" max="1.2" step="0.01" value="0.45"></label>
+    </div>
+  </div>
+  <div class="springs__lab">
+    <div class="lab">
+      <div class="lab__notch" id="labNotch"><span class="eye"><i></i></span><span class="eye"><i></i></span></div>
+      <p class="lab__hint pixel">↓ pull the notch down and let go ↓</p>
+      <canvas id="curve" class="lab__curve" aria-label="Graph of the spring curve"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EFFICIENCY COMIC ============ -->
+<section class="comic" aria-labelledby="comicTitle">
+  <h2 id="comicTitle" class="visually-hidden">Efficiency</h2>
+  <div class="panel panel--a">
+    <span class="panel__cap">Meanwhile, in Activity Monitor…</span>
+    <div class="pow">0.0%<small>CPU</small></div>
+    <p>Idle, with every service running.</p>
+  </div>
+  <div class="panel panel--b">
+    <div class="pow pow--blue">~31<small>MB</small></div>
+    <p>That's all the memory it needs.</p>
+  </div>
+  <div class="panel panel--c">
+    <span class="panel__cap">Nothing polls!</span>
+    <p class="panel__big">Playback and battery updates arrive by push. The equalizer runs on Core Animation. Your fans stay asleep.</p>
+    <div class="zzz" aria-hidden="true">z<span>z</span><span>Z</span></div>
+  </div>
+  <div class="panel panel--d">
+    <span class="panel__cap">Privacy</span>
+    <p class="panel__big">No accounts. No tracking SDK. Your calendar and clipboard stay on your Mac.</p>
+  </div>
+</section>
+
+<!-- ============ PAINT ============ -->
+<section class="paint" id="paint" aria-labelledby="paintTitle">
+  <div class="sect-head">
+    <span class="tape tape--mint">Guest book</span>
+    <h2 id="paintTitle" class="title">LacyPaint</h2>
+    <p class="sect-head__sub">Doodle on the desktop before you go. The patterns are from 1984. The stamps are a bit newer.</p>
+  </div>
+  <div class="win win--paint">
+    <div class="win__bar"><span class="win__close"></span><span class="win__title">untitled-masterpiece.pnt</span></div>
+    <div class="paint__wrap">
+      <div class="paint__tools" role="toolbar" aria-label="Paint tools">
+        <button class="pt is-on" data-tool="brush" title="Brush" aria-label="Brush"><svg class="i" aria-hidden="true"><use href="#i-brush"/></svg></button>
+        <button class="pt" data-tool="pattern" title="Pattern brush" aria-label="Pattern brush"><svg class="i" aria-hidden="true"><use href="#i-checker"/></svg></button>
+        <button class="pt" data-tool="spray" title="Spray can" aria-label="Spray can"><svg class="i" aria-hidden="true"><use href="#i-spray"/></svg></button>
+        <button class="pt" data-tool="stamp" title="Sticker stamp" aria-label="Sticker stamp"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg></button>
+        <button class="pt" data-tool="eraser" title="Eraser" aria-label="Eraser"><svg class="i" aria-hidden="true"><use href="#i-eraser"/></svg></button>
+        <span class="pt__sep"></span>
+        <button class="pt" id="paintClear" title="Clear" aria-label="Clear"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg></button>
+        <button class="pt" id="paintSave" title="Save as PNG" aria-label="Save as PNG"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></button>
+      </div>
+      <canvas id="paintCanvas" class="paint__canvas" aria-label="Drawing canvas"></canvas>
+      <div class="paint__palette" id="palette" aria-label="Colours and patterns"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SNAKE ============ -->
+<section class="snake" id="snake" aria-labelledby="snakeTitle">
+  <div class="snake__copy">
+    <span class="tape">Page 5 of 6</span>
+    <h2 id="snakeTitle" class="title">Yes, there's<br><em>Snake.</em></h2>
+    <p>Lacy has a game of Snake inside your notch, for the minute while something compiles. Here's the same game, bigger.</p>
+    <p class="pixel">arrows / WASD / swipe · space to start</p>
+    <p class="snake__score pixel">score <b id="score">0</b> · best <b id="best">0</b></p>
+  </div>
+  <div class="win win--snake">
+    <div class="win__bar"><span class="win__close"></span><span class="win__title">snake.app</span></div>
+    <div class="snake__box">
+      <canvas id="snakeCanvas" tabindex="0" aria-label="Snake game. Press space to start, arrow keys to steer"></canvas>
+      <div class="snake__over" id="snakeOver"><b>SNAKE</b><span>press space or tap</span></div>
+    </div>
+    <div class="dpad" aria-label="Direction pad">
+      <button data-dir="up" aria-label="Up"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg></button><button data-dir="left" aria-label="Left"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button><button data-dir="down" aria-label="Down"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></button><button data-dir="right" aria-label="Right"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq" aria-labelledby="faqTitle">
+  <div class="win win--faq">
+    <div class="win__bar"><span class="win__close"></span><span class="win__title">Read Me · SimpleText</span></div>
+    <div class="win__body">
+      <h2 id="faqTitle" class="title title--small">Read Me First</h2>
+      <details open><summary>Which Macs does it run on?</summary><p>macOS 14 or later, on both Apple silicon and Intel. If your Mac has no notch, Lacy draws one for you.</p></details>
+      <details><summary>Is it free?</summary><p>Yes, for the whole beta. We'll talk about 1.0 later.</p></details>
+      <details><summary>macOS says "Lacy Not Opened". Help?</summary><p>The beta isn't notarized yet. Right-click Lacy in Applications, choose <b>Open</b>, then <b>Open</b> again. The disk image has an "Open Me First" note that walks you through it.</p></details>
+      <details><summary>Will it slow my Mac down?</summary><p>It idles at 0.0% CPU and about 31 MB of memory. Nothing polls.</p></details>
+      <details><summary>Does it hide in full screen?</summary><p>Over full-screen apps the notch turns invisible and lets clicks through until you point right at it. It also steps aside while you're in the app that's playing.</p></details>
+      <details><summary>Can it hide from screenshots?</summary><p>Yes. It's optional, and the setting also covers screen sharing.</p></details>
+      <details><summary>What does it collect?</summary><p>Nothing. There's no account and no analytics. Updates come from a public GitHub repository.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOWNLOAD ============ -->
+<section class="download" id="download" aria-labelledby="dlTitle">
+  <div class="download__rays" aria-hidden="true"></div>
+  <div class="disk" aria-hidden="true">
+    <div class="disk__shutter"><span></span></div>
+    <div class="disk__label"><b>LACY</b><small>0.9 beta · disk 1 of 1</small></div>
+  </div>
+  <div class="download__copy">
+    <h2 id="dlTitle" class="mega mega--dl"><span class="mega__line">INSERT</span><span class="mega__line mega__line--b">DISK.</span></h2>
+    <p>Free beta · macOS 14+ · Apple silicon &amp; Intel · updates itself</p>
+    <a class="btn btn--yellow btn--huge" id="dlBtn" href="https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download Lacy beta</a>
+    <p class="pixel download__fine">.dmg · about 5 MB · read the "Open Me First" note</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot__marquee pixel" aria-hidden="true"><span><svg class="i" aria-hidden="true"><use href="#i-flower"/></svg> made with love, springs &amp; way too many stickers <svg class="i" aria-hidden="true"><use href="#i-flower"/></svg> made with love, springs &amp; way too many stickers <svg class="i" aria-hidden="true"><use href="#i-flower"/></svg>&nbsp;</span><span><svg class="i" aria-hidden="true"><use href="#i-flower"/></svg> made with love, springs &amp; way too many stickers <svg class="i" aria-hidden="true"><use href="#i-flower"/></svg> made with love, springs &amp; way too many stickers <svg class="i" aria-hidden="true"><use href="#i-flower"/></svg>&nbsp;</span></div>
+  <p>© 2026 Lacy. Not affiliated with Apple Inc. Mac and macOS are trademarks of Apple Inc.</p>
+</footer>
+
+<div class="toast pixel" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

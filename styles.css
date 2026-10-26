@@ -60,7 +60,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .menubar a:hover { background: var(--ink); color: var(--paper); }
 .menubar__left, .menubar__right { display: flex; align-items: center; gap: 2px; }
 .menubar__logo { color: var(--pink); display: inline-flex; }
-.menubar__logo .i { width: 20px; height: 20px; }
+.menubar__logo img { width: 28px; height: 28px; display: block; }
 .menubar__logo:hover { color: var(--yellow) !important; }
 .menubar__clock { padding: 0 8px; }
 .menubar__bat { width: 24px; height: 12px; border: 2px solid var(--ink); border-radius: 3px; position: relative; padding: 1px; }
@@ -105,7 +105,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .peek__bar i { display: block; height: 100%; background: var(--mint); border-radius: 3px; }
 
 .notch__open {
-  position: absolute; left: 0; right: 0; top: 0; padding: 40px 22px 12px;
+  position: absolute; left: 0; right: 0; top: 0; padding: 40px 0 10px;
   opacity: 0; transform: scale(.92); transform-origin: top center;
   transition: opacity .15s, transform .25s;
   pointer-events: none;
@@ -139,9 +139,48 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .np__btn:hover { transform: scale(1.2); }
 .np__btn:active { transform: scale(.85); }
 .np__btn--big { font-size: 26px; }
-.np__dots { display: flex; justify-content: center; gap: 4px; margin-top: 8px; }
-.np__dots i, .np__dots b { width: 5px; height: 5px; border-radius: 3px; background: #555; }
-.np__dots b { width: 14px; background: #ddd; }
+/* pages inside the open notch */
+.notch__label { position: absolute; left: 22px; top: 13px; font: 400 11px/1 var(--pixel); color: #8a8a8a; }
+.nview { overflow: hidden; touch-action: pan-y; }
+.ntrack { display: flex; will-change: transform; }
+.npage { flex: 0 0 100%; min-width: 0; height: 120px; padding: 0 22px; }
+.np__dots { display: flex; justify-content: center; gap: 2px; margin-top: 6px; }
+.np__dots button { width: 12px; height: 12px; padding: 0; border: 0; background: none; display: grid; place-items: center; }
+.np__dots button::before { content: ""; width: 5px; height: 5px; border-radius: 3px; background: #555; transition: width .25s, background .25s; }
+.np__dots button[aria-selected="true"]::before { width: 14px; background: #ddd; }
+.np__dots:has(button[aria-selected="true"]) button[aria-selected="true"] { width: 20px; }
+
+.ncal { display: flex; gap: 18px; align-items: center; }
+.ncal__day { display: flex; flex-direction: column; align-items: flex-start; flex: none; }
+.ncal__day b { font: 400 52px/1 var(--display); color: #fff; }
+.ncal__day span { font: 400 11px/1.2 var(--pixel); color: var(--hot); margin-top: 4px; }
+.ncal__evs { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.ncal__evs .ev { font-size: 13px; padding: 7px 10px; }
+
+.nshelf__drop { height: 100%; border: 2px dashed #444; border-radius: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; padding: 10px; color: #888; font: 400 11px/1 var(--pixel); }
+.nshelf__drop > span { display: inline-flex; align-items: center; gap: 8px; }
+.nshelf__drop .i { width: 18px; height: 18px; color: var(--sky); }
+.nshelf__drop .chipfile { background: #1f1f1f; color: #fff; padding: 8px 10px; border-radius: 10px; font: 600 12px/1 var(--body); }
+
+.nask { display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.nask__apps { display: flex; gap: 6px; flex-wrap: wrap; }
+.nask__apps b, .nask__apps i { font: 400 10px/1 var(--pixel); padding: 6px 9px; border-radius: 999px; background: #1f1f1f; color: #aaa; font-style: normal; }
+.nask__apps b { background: #fff; color: #000; }
+.nask__row { display: flex; align-items: center; gap: 8px; background: #1a1a1a; border-radius: 14px; padding: 4px 6px 4px 14px; }
+.nask__row input { flex: 1; min-width: 0; background: none; border: 0; color: #fff; font: 500 16px/1.2 var(--body); padding: 8px 0; outline: none; }
+.nask__row kbd { font: 400 10px/1 var(--pixel); color: #777; background: #262626; border-radius: 6px; padding: 6px 7px; white-space: nowrap; }
+
+.nsnake { position: relative; }
+.nsnake canvas { width: 100%; height: 100%; border-radius: 14px; background: #0b0b0b; }
+.nsnake__go { position: absolute; right: 30px; bottom: 8px; font: 400 10px/1 var(--pixel); color: var(--mint); text-decoration: none; background: rgba(0,0,0,.7); padding: 5px 7px; border-radius: 6px; }
+
+.ntools { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.ntool { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; background: none; border: 0; color: #ccc; padding: 0; }
+.ntool .i { width: 46px; height: 46px; padding: 12px; border-radius: 14px; background: #1c1c1c; color: #fff; transition: transform .25s cubic-bezier(.3,1.8,.5,1), background .2s; }
+.ntool span { font: 400 9px/1 var(--pixel); white-space: nowrap; }
+.ntool:hover .i { transform: scale(1.08); }
+.ntool.is-on .i { background: #fff; color: #000; }
+.ntool.is-on span { color: #fff; }
 
 /* ---------- Sparkle cursor layer ---------- */
 .sparkles { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 70; }
@@ -601,7 +640,8 @@ details p { margin: 8px 0 4px 26px !important; font-size: 16px !important; }
 .chipfile { display: inline-flex; align-items: center; gap: 6px; }
 .chipfile .i { width: 14px; height: 14px; color: var(--yellow); }
 .marquee .i { width: .8em; height: .8em; vertical-align: .02em; color: var(--paper); }
-.foot__marquee .i { width: 14px; height: 14px; color: var(--pink); vertical-align: -2px; }
+.mark { width: 18px; height: 18px; vertical-align: -3px; }
+.notch__peek .mark { width: 20px; height: 20px; }
 
 /* ---------- Touch devices (iPhone, iPad) ---------- */
 @media (hover: none), (pointer: coarse) {
@@ -630,6 +670,11 @@ details p { margin: 8px 0 4px 26px !important; font-size: 16px !important; }
   .menubar a { padding: 6px 7px; }
   .notch { width: 130px; }
   .notch__peek { padding: 0 14px; gap: 8px; font-size: 11px; }
+  .npage { padding: 0 16px; }
+  .notch__label { left: 16px; }
+  .ntool .i { width: 38px; height: 38px; padding: 9px; border-radius: 11px; }
+  .ntool span { font-size: 7px; }
+  .ncal__day b { font-size: 44px; }
   .hero { padding: calc(var(--menubar) + 48px) 16px 56px; row-gap: 22px; }
   .kicker { font-size: 11px; }
   .hero__lede { font-size: 16px; padding: 14px; box-shadow: 4px 4px 0 var(--ink); }

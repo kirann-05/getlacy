@@ -95,7 +95,7 @@
   const geo = {
     closed: () => ({ w: narrow() ? 130 : 190, h: 34 }),
     peek: () => ({ w: Math.min(400, innerWidth - 24), h: 40 }),
-    open: () => ({ w: Math.min(440, innerWidth - 24), h: 186 }),
+    open: () => ({ w: Math.min(440, innerWidth - 24), h: 190 }),
   };
   let nState = "closed";
   const wS = new Spring(geo.closed().w, (v) => { notch.style.width = v + "px"; });
@@ -110,6 +110,7 @@
     notch.classList.toggle("is-open", state === "open");
     notch.classList.toggle("is-peek", state === "peek");
     notch.setAttribute("aria-expanded", state === "open");
+    document.dispatchEvent(new CustomEvent("notchstate", { detail: state }));
   }
   let leaveT, peekT;
   notch.addEventListener("pointerenter", (e) => {
@@ -123,15 +124,15 @@
     notch.classList.remove("is-lifted");
     leaveT = setTimeout(() => setNotch("closed"), 220);
   });
-  notch.addEventListener("click", (e) => {
-    if (e.target.closest("button")) return;
-    if (matchMedia("(hover: hover)").matches && nState === "open") return;
+  // A tap opens the notch; once open, taps inside it are for its pages (tap outside or scroll the page to close).
+  notch.addEventListener("click", () => {
+    if (nState === "open") return;
     clearTimeout(peekT);
-    setNotch(nState === "open" ? "closed" : "open");
+    setNotch("open");
   });
   notch.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setNotch(nState === "open" ? "closed" : "open"); }
-    if (e.key === "Escape") setNotch("closed");
+    if (e.target === notch && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setNotch(nState === "open" ? "closed" : "open"); }
+    if (e.key === "Escape") { setNotch("closed"); notch.focus(); }
   });
   document.addEventListener("pointerdown", (e) => { if (nState === "open" && !notch.contains(e.target)) setNotch("closed"); });
   addEventListener("resize", () => { const g = geo[nState](); wS.set(g.w); hS.set(g.h); });
@@ -149,6 +150,127 @@
     clearTimeout(peekT);
     peekT = setTimeout(() => { if (nState === "peek") setNotch("closed"); }, ms);
   }
+
+  /* ---------- Notch pages: scroll, swipe, dots or arrow keys ---------- */
+  const PAGES = ["Now Playing", "Calendar", "Shelf", "Ask", "Snake", "Tools"];
+  const nTrack = $("#nTrack"), nView = $("#nView"), nDots = $("#nDots"), nLabel = $("#nLabel");
+  let page = 0;
+  const pageS = new Spring(0, (p) => { nTrack.style.transform = `translateX(${-p * 100}%)`; });
+  const PAGE_SPRING = { bounce: 0.18, duration: 0.42 };
+  PAGES.forEach((name, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-label", name);
+    b.addEventListener("click", () => goPage(i));
+    nDots.appendChild(b);
+  });
+  function goPage(i, kick = 0) {
+    const to = clamp(i, 0, PAGES.length - 1);
+    if (to === page && kick) pageS.v = kick;        // already at the end: bump past it and spring back
+    page = to;
+    pageS.to(page, PAGE_SPRING);
+    nLabel.textContent = PAGES[page];
+    $$("button", nDots).forEach((b, j) => b.setAttribute("aria-selected", j === page));
+    miniSnake(page === 4 && nState === "open");
+  }
+  // Mouse wheel or trackpad over the open notch flips pages: one page per gesture, like the app.
+  let wheelAcc = 0, lastWheel = 0, wheelDone = false;
+  notch.addEventListener("wheel", (e) => {
+    if (nState !== "open") return;
+    e.preventDefault();
+    const now = performance.now();
+    if (now - lastWheel > 180) { wheelAcc = 0; wheelDone = false; }
+    lastWheel = now;
+    if (wheelDone) return;
+    const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    wheelAcc += e.deltaMode === 1 ? d * 30 : d;
+    if (Math.abs(wheelAcc) > 40) { const dir = Math.sign(wheelAcc); wheelDone = true; goPage(page + dir, dir * 3); }
+  }, { passive: false });
+  // Touch: the pages follow the finger, rubber-banding at the ends.
+  let swX = null, swY = 0, swP = 0, dragging = false;
+  nView.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse") return;
+    swX = e.clientX; swY = e.clientY; swP = page; dragging = false;
+  });
+  nView.addEventListener("pointermove", (e) => {
+    if (swX == null) return;
+    const dx = e.clientX - swX, dy = e.clientY - swY;
+    if (!dragging) {
+      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+      dragging = true; nView.setPointerCapture(e.pointerId);
+    }
+    const max = PAGES.length - 1;
+    let p = swP - dx / nView.clientWidth;
+    if (p < 0) p *= 0.3; else if (p > max) p = max + (p - max) * 0.3;
+    pageS.set(p);
+  });
+  const swipeEnd = (e) => {
+    if (swX == null) return;
+    const dx = e.clientX - swX, w = nView.clientWidth;
+    if (dragging) goPage(dx < -w * 0.15 ? swP + 1 : dx > w * 0.15 ? swP - 1 : swP);
+    swX = null; dragging = false;
+  };
+  nView.addEventListener("pointerup", swipeEnd); nView.addEventListener("pointercancel", swipeEnd);
+  notch.addEventListener("keydown", (e) => {
+    if (nState !== "open" || e.target.matches("input")) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); goPage(page + 1, 3); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); goPage(page - 1, -3); }
+  });
+  document.addEventListener("notchstate", (e) => miniSnake(e.detail === "open" && page === 4));
+
+  // Ask and Tools pages
+  $("#nAsk").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = $("#nAskIn").value.trim();
+    if (!q) return;
+    toast(`Handed to Claude: "${q.slice(0, 32)}${q.length > 32 ? "…" : ""}"`);
+    $("#nAskIn").value = "";
+  });
+  for (const t of $$(".ntool")) t.addEventListener("click", () => {
+    const on = !t.classList.contains("is-on");
+    $$(".ntool").forEach((x) => x.classList.remove("is-on"));
+    t.classList.toggle("is-on", on);
+    if (on) toast(`${t.dataset.ntool} is ready`);
+  });
+
+  // Snake page: a tiny snake that plays itself
+  const ms = $("#nSnake"), mx = ms.getContext("2d");
+  let mBody = [], mFood = null, mDir = { x: 1, y: 0 }, mTimer = 0, mCols = 30, mRows = 8;
+  function miniReset() {
+    mBody = [{ x: 6, y: 3 }, { x: 5, y: 3 }, { x: 4, y: 3 }, { x: 3, y: 3 }]; mDir = { x: 1, y: 0 }; miniFood();
+  }
+  function miniFood() {
+    do { mFood = { x: (Math.random() * mCols) | 0, y: (Math.random() * mRows) | 0 }; } while (mBody.some((b) => b.x === mFood.x && b.y === mFood.y));
+  }
+  function miniStep() {
+    const h = mBody[0], wrap = (p) => ({ x: (p.x + mCols) % mCols, y: (p.y + mRows) % mRows });
+    const options = [{ x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }]
+      .filter((d) => !(d.x === -mDir.x && d.y === -mDir.y))
+      .map((d) => ({ d, n: wrap({ x: h.x + d.x, y: h.y + d.y }) }))
+      .filter((o) => !mBody.some((b) => b.x === o.n.x && b.y === o.n.y));
+    if (!options.length) return miniReset();
+    options.sort((a, b) => (Math.abs(a.n.x - mFood.x) + Math.abs(a.n.y - mFood.y)) - (Math.abs(b.n.x - mFood.x) + Math.abs(b.n.y - mFood.y)) || Math.random() - 0.5);
+    mDir = options[0].d;
+    mBody.unshift(options[0].n);
+    if (options[0].n.x === mFood.x && options[0].n.y === mFood.y) { if (mBody.length > 22) miniReset(); else miniFood(); }
+    else mBody.pop();
+    miniDraw();
+  }
+  function miniDraw() {
+    const d = Math.min(2, devicePixelRatio || 1);
+    if (ms.width !== Math.round(ms.clientWidth * d)) { ms.width = Math.round(ms.clientWidth * d); ms.height = Math.round(ms.clientHeight * d); }
+    const cw = ms.width / mCols, ch = ms.height / mRows;
+    mx.fillStyle = "#0b0b0b"; mx.fillRect(0, 0, ms.width, ms.height);
+    mx.fillStyle = "#ff4fa3"; mx.beginPath(); mx.arc((mFood.x + 0.5) * cw, (mFood.y + 0.5) * ch, Math.min(cw, ch) * 0.36, 0, 6.283); mx.fill();
+    mBody.forEach((b, i) => { mx.fillStyle = i === 0 ? "#ffdd33" : "#3ee6a8"; mx.fillRect(b.x * cw + 1, b.y * ch + 1, cw - 2, ch - 2); });
+  }
+  function miniSnake(on) {
+    clearInterval(mTimer); mTimer = 0;
+    if (!on) return;
+    if (!mBody.length) miniReset();
+    miniDraw();
+    if (!reduce) mTimer = setInterval(miniStep, 120);
+  }
+  goPage(0);
 
   /* ---------- Shared player ---------- */
   const tracks = [
@@ -361,6 +483,13 @@
       g.appendChild(b);
     }
     renderEvents(today.getDate());
+    // the notch's Calendar page shows today
+    $("#nCalNum").textContent = today.getDate();
+    $("#nCalName").textContent = today.toLocaleDateString([], { weekday: "long" }) + " · " + today.toLocaleDateString([], { month: "short" });
+    const todays = evFor(today.getDate()).slice(0, 2);
+    $("#nCalEvs").innerHTML = todays.length
+      ? todays.map(([n, c], i) => `<div class="ev" style="background:${c}33;border-left:3px solid ${c}"><span>${n}</span><span>${9 + i * 3}:${i % 2 ? "30" : "00"}</span></div>`).join("")
+      : `<div class="ev ev--none"><span>Nothing today. Go outside!</span></div>`;
   })();
 
   /* ---------- Shelf (pointer drag so it works with touch too) ---------- */
@@ -390,6 +519,10 @@
         if (drop.firstElementChild && !drop.querySelector(".chipfile")) drop.innerHTML = "";
         const c = document.createElement("span"); c.className = "chipfile"; c.innerHTML = ic("doc") + " " + f.dataset.name;
         drop.appendChild(c); f.classList.add("is-gone");
+        const ns = $("#nShelf");
+        if (!ns.querySelector(".chipfile")) ns.innerHTML = "";
+        ns.appendChild(c.cloneNode(true));
+        if (ns.children.length > 3) ns.firstElementChild.remove();
         peek(`<span>${ic("tray", "#7fd3ff")} Shelf</span><b>${f.dataset.name}</b>`, 1800);
         if ($$(".file.is-gone").length === 3) setTimeout(() => { $$(".file").forEach((x) => x.classList.remove("is-gone")); drop.innerHTML = "<span>shelf full! drag again ↑</span>"; }, 2600);
       }
@@ -702,6 +835,6 @@
   addEventListener("keydown", (e) => {
     if (e.target.matches("input, textarea")) return;
     buf = (buf + e.key.toLowerCase()).slice(-4);
-    if (buf === "lacy") { confetti(innerWidth / 2, 40, 220); peek(`<span>${ic("flower", "#ff4fa3")}</span><b>you found me!</b><span>${ic("flower", "#ffdd33")}</span>`, 2400); }
+    if (buf === "lacy") { confetti(innerWidth / 2, 40, 220); peek(`<img class="mark" src="lacy-mark.svg" alt=""><b>you found me!</b><img class="mark" src="lacy-mark.svg" alt="">`, 2400); }
   });
 })();

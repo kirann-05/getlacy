@@ -660,7 +660,7 @@ details p { margin: 8px 0 4px 26px !important; font-size: 16px !important; }
   .laptop { max-width: 600px; }
   .icons { grid-template-columns: repeat(7, 86px); }
   .sticker:nth-child(2), .sticker:nth-child(3), .sticker:nth-child(5), .sticker:nth-child(9) { display: none; }
-  .sticker:nth-child(1) { left: auto; right: 6%; top: 46%; }   /* FREE v1.0 burst beside the laptop */
+  .sticker:nth-child(1) { left: auto; right: 6%; top: 46%; }   /* FREE v1.1 burst beside the laptop */
   .springs, .snake { gap: 36px; }
   .lab { height: 420px; }
   .win--snake { max-width: 640px; width: 100%; justify-self: center; }

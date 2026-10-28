@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lacy">
 <meta property="og:title" content="Lacy: a free notch app for Mac">
-<meta property="og:description" content="Music, calendar, a file shelf, Ask, Snake and tools, all living in your Mac's notch, plus Now Playing on the lock screen. Free for macOS 14+.">
+<meta property="og:description" content="Music, calendar, a file shelf, Ask, Snake and tools, all living in your Mac's notch, plus a full-screen player with synced lyrics on the lock screen. Free for macOS 14+.">
 <meta property="og:url" content="https://kirann-05.github.io/getlacy/">
 <meta property="og:image" content="https://kirann-05.github.io/getlacy/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -18,8 +18,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kirann-05.github.io/getlacy/og.jpg">
 <title>Lacy: a free notch app for Mac · Your notch, alive</title>
-<meta name="description" content="Lacy is a free notch app for Mac. It turns your MacBook notch into a springy little stage for music, your calendar, a file shelf, AI questions, Snake and tools, with Now Playing on the lock screen. Free for macOS 14+.">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Lacy", "alternateName": "Lacy notch app", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 14 or later", "description": "Lacy is a free notch app for Mac. It turns the MacBook notch into a live space for now playing music, your calendar, a file shelf, quick AI questions, Snake and handy tools, plus a Now Playing card on the lock screen.", "url": "https://kirann-05.github.io/getlacy/", "image": "https://kirann-05.github.io/getlacy/og.jpg", "downloadUrl": "https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg", "softwareVersion": "1.0", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+<meta name="description" content="Lacy is a free notch app for Mac. It turns your MacBook notch into a springy little stage for music, your calendar, a file shelf, AI questions, Snake and tools, with a full-screen player and synced lyrics on the lock screen. Free for macOS 14+.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Lacy", "alternateName": "Lacy notch app", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 14 or later", "description": "Lacy is a free notch app for Mac. It turns the MacBook notch into a live space for now playing music, your calendar, a file shelf, quick AI questions, Snake and handy tools, plus a full-screen player with synced lyrics on the lock screen.", "url": "https://kirann-05.github.io/getlacy/", "image": "https://kirann-05.github.io/getlacy/og.jpg", "downloadUrl": "https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg", "softwareVersion": "1.1", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Silkscreen:wght@400;700&family=VT323&family=Permanent+Marker&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
@@ -142,14 +142,14 @@
   <div class="hero__sun" aria-hidden="true"></div>
 
   <div class="hero__copy">
-    <p class="kicker"><span><svg class="i" aria-hidden="true"><use href="#i-star"/></svg> System 1.0 <svg class="i" aria-hidden="true"><use href="#i-star"/></svg></span> Lacy 1.0, the notch app for Mac · free for macOS 14+</p>
+    <p class="kicker"><span><svg class="i" aria-hidden="true"><use href="#i-star"/></svg> System 1.1 <svg class="i" aria-hidden="true"><use href="#i-star"/></svg></span> Lacy 1.1, the notch app for Mac · free for macOS 14+</p>
     <h1 id="heroTitle" class="mega">
       <span class="mega__line" data-split>YOUR NOTCH,</span>
       <span class="mega__line mega__line--b" data-split>ALIVE!</span>
     </h1>
-    <p class="hero__lede">Lacy turns the black rectangle at the top of your Mac into a tiny, springy stage. Music, your calendar, a file shelf, an AI question box, Snake and a drawer of tools all live up there. New in 1.0: Now Playing on your lock screen. <mark>Point at the notch above ↑, then scroll it.</mark></p>
+    <p class="hero__lede">Lacy turns the black rectangle at the top of your Mac into a tiny, springy stage. Music, your calendar, a file shelf, an AI question box, Snake and a drawer of tools all live up there. New in 1.1: a full-screen player with synced lyrics on your lock screen. <mark>Point at the notch above ↑, then scroll it.</mark></p>
     <div class="hero__ctas">
-      <a href="#download" class="btn btn--pink"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Insert Disk · Download 1.0</a>
+      <a href="#download" class="btn btn--pink"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Insert Disk · Download 1.1</a>
       <a href="#features" class="btn btn--paper">Take the tour <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
     </div>
   </div>
@@ -186,7 +186,7 @@
 
   <!-- draggable stickers -->
   <div class="stickers" aria-hidden="true">
-    <div class="sticker burst burst--yellow" style="--x:44%;--y:58%;--r:-12deg">FREE!<br>v1.0</div>
+    <div class="sticker burst burst--yellow" style="--x:44%;--y:58%;--r:-12deg">FREE!<br>v1.1</div>
     <div class="sticker pill pill--mint" style="--x:44%;--y:84%;--r:6deg">0.0% CPU idle</div>
     <div class="sticker circle circle--blue" style="--x:78%;--y:80%;--r:14deg">31<small>MB</small></div>
     <div class="sticker star" style="--x:30%;--y:3%;--r:10deg"></div>
@@ -218,7 +218,7 @@
   <div class="grid">
     <!-- Player -->
     <article class="win win--tilt1" id="f-player">
-      <div class="win__bar"><span class="win__close"></span><span class="win__title">Now Playing</span><span class="win__new pixel">NEW: lock screen</span></div>
+      <div class="win__bar"><span class="win__close"></span><span class="win__title">Now Playing</span><span class="win__new pixel">NEW: lyrics</span></div>
       <div class="win__body">
         <div class="demo-player">
           <div class="dp__art" id="dpArt"><span></span></div>
@@ -227,7 +227,7 @@
             <div class="dp__ctrls"><button data-np="prev" aria-label="Previous"><svg class="i" aria-hidden="true"><use href="#i-backward"/></svg></button><button data-np="play" aria-label="Play or pause" class="big"><svg class="i" aria-hidden="true"><use href="#i-pause"/></svg></button><button data-np="next" aria-label="Next"><svg class="i" aria-hidden="true"><use href="#i-forward"/></svg></button></div>
           </div>
         </div>
-        <p>Spotify, Music, YouTube in your browser, podcasts, video players. Real artwork, a scrubber, and a waveform tinted to match the cover. Swipe the closed notch to skip. New in 1.0: lock your Mac and a see-through glass card keeps what's playing, with controls, right on the lock screen. <mark>Press play: these songs are original chiptunes made for this page.</mark></p>
+        <p>Spotify, Music, YouTube in your browser, podcasts, video players. Real artwork, a scrubber, and a waveform tinted to match the cover. Swipe the closed notch to skip. Lock your Mac and a see-through glass card keeps what's playing, with controls. New in 1.1: tap the cover for a full-screen player with a sharp cover and synced lyrics. <mark>Press play: these songs are original chiptunes made for this page.</mark></p>
       </div>
     </article>
 
@@ -408,13 +408,13 @@
     <div class="win__body">
       <h2 id="faqTitle" class="title title--small">Read Me First</h2>
       <details open><summary>Which Macs does it run on?</summary><p>macOS 14 or later, on both Apple silicon and Intel. If your Mac has no notch, Lacy draws one for you.</p></details>
-      <details><summary>Is it free?</summary><p>Yes, Lacy 1.0 is free. No account needed.</p></details>
+      <details><summary>Is it free?</summary><p>Yes, Lacy is free. No account needed.</p></details>
       <details><summary>macOS says "Lacy Not Opened". Help?</summary><p>Lacy isn't notarized by Apple yet. Right-click Lacy in Applications, choose <b>Open</b>, then <b>Open</b> again. The disk image has an "Open Me First" note that walks you through it.</p></details>
       <details><summary>Will it slow my Mac down?</summary><p>It idles at 0.0% CPU and about 31 MB of memory. Nothing polls.</p></details>
       <details><summary>Does it hide in full screen?</summary><p>Over full-screen apps the notch turns invisible and lets clicks through until you point right at it. It also steps aside while you're in the app that's playing.</p></details>
-      <details><summary>Does it work on the lock screen?</summary><p>Yes, new in 1.0. While your Mac is locked, a see-through glass card shows what's playing, with play, pause and skip. Prefer frosted? Pick Match System in Settings.</p></details>
+      <details><summary>Does it work on the lock screen?</summary><p>Yes. While your Mac is locked, a see-through glass card shows what's playing, with play, pause and skip. New in 1.1: tap the cover for a full-screen player with synced lyrics. Space plays and pauses, the arrow keys skip. Prefer frosted? Pick Match System in Settings.</p></details>
       <details><summary>Can it hide from screenshots?</summary><p>Yes. It's optional, and the setting also covers screen sharing.</p></details>
-      <details><summary>What does it collect?</summary><p>Nothing. There's no account and no analytics. Updates come from a public GitHub repository.</p></details>
+      <details><summary>What does it collect?</summary><p>Nothing. There's no account and no analytics. When you open the full-screen lock screen player, Lacy looks up a sharper cover (from Apple's music catalogue, or YouTube for videos) using the song's title and artist. If you turn on lyrics, it looks them up on LRCLIB the same way. Updates come from a public GitHub repository.</p></details>
     </div>
   </div>
 </section>
@@ -424,12 +424,12 @@
   <div class="download__rays" aria-hidden="true"></div>
   <div class="disk" aria-hidden="true">
     <div class="disk__shutter"><span></span></div>
-    <div class="disk__label"><b>LACY</b><small>version 1.0 · disk 1 of 1</small></div>
+    <div class="disk__label"><b>LACY</b><small>version 1.1 · disk 1 of 1</small></div>
   </div>
   <div class="download__copy">
     <h2 id="dlTitle" class="mega mega--dl"><span class="mega__line">INSERT</span><span class="mega__line mega__line--b">DISK.</span></h2>
     <p>Free · macOS 14+ · Apple silicon &amp; Intel · updates itself</p>
-    <a class="btn btn--yellow btn--huge" id="dlBtn" href="https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download Lacy 1.0</a>
+    <a class="btn btn--yellow btn--huge" id="dlBtn" href="https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download Lacy 1.1</a>
     <p class="pixel download__fine">.dmg · about 5 MB · read the "Open Me First" note</p>
   </div>
 </section>

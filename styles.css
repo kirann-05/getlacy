@@ -581,6 +581,34 @@ details p { margin: 8px 0 4px 26px !important; font-size: 16px !important; }
 .download__copy > p { font-size: 18px; font-weight: 700; background: var(--ink); display: inline-block; padding: 8px 12px; margin: 30px 0 22px; }
 .download__copy .btn { display: flex; width: max-content; max-width: 100%; }
 .download__fine { font-size: 12px !important; background: none !important; padding: 0 !important; margin: 14px 0 0 !important; font-weight: 400 !important; }
+.download__which { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--paper); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.download__which .i { width: 18px; height: 18px; }
+.download__which:hover { color: var(--yellow); }
+
+/* Which Lacy: Lacy 2.0 for notch MacBooks, Lacy 1.1 for every other Mac. */
+.which { padding: 110px clamp(16px, 5vw, 80px) 120px; background: var(--cream); border-top: var(--stroke); }
+.which__head { max-width: 1100px; margin: 0 auto 40px; }
+.which__lede { font-size: clamp(16px, 1.4vw, 19px); font-weight: 700; max-width: 34em; margin: 18px 0 0; }
+.which__cards { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); }
+.wcard { background: var(--paper); border: var(--stroke); border-radius: 18px; box-shadow: var(--shadow-lg); padding: 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.wcard--notch { transform: rotate(-1deg); }
+.wcard--plain { transform: rotate(1deg); }
+.wcard h3 { font: 400 clamp(24px, 2.6vw, 34px)/1 var(--display); margin: 0; }
+.wcard__chip { align-self: flex-start; margin: 0; font-size: 13px; padding: 6px 10px; background: var(--ink); color: var(--yellow); transform: rotate(-2deg); }
+.wcard--plain .wcard__chip { color: var(--mint); }
+.wcard__list { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 16px; }
+.wcard .btn { margin-top: auto; align-self: flex-start; max-width: 100%; }
+/* A little screen: a menu bar, and either the notch or Lacy's own pill. */
+.wscreen { position: relative; height: 110px; border: var(--stroke); border-radius: 12px 12px 6px 6px; background: linear-gradient(135deg, var(--blue), var(--lilac) 55%, var(--pink)); overflow: hidden; }
+.wscreen__bar { position: absolute; inset: 0 0 auto; height: 16px; background: rgba(255,246,227,.85); border-bottom: 2px solid var(--ink); }
+.wscreen__notch { position: absolute; top: 0; left: 50%; width: 92px; height: 22px; transform: translateX(-50%); background: var(--ink); border-radius: 0 0 9px 9px; }
+.wscreen__notch::after { content: ""; position: absolute; left: 50%; top: 7px; width: 7px; height: 7px; transform: translateX(-50%); border-radius: 50%; background: #2b2a44; }
+.wscreen__pill { position: absolute; top: 17px; left: 50%; width: 76px; height: 14px; transform: translateX(-50%); background: var(--ink); border-radius: 0 0 8px 8px; }
+.which__fine { max-width: 1100px; margin: 36px auto 0; font-size: 15px; }
+@media (max-width: 860px) {
+  .which__cards { grid-template-columns: minmax(0, 1fr); }
+  .wcard--notch, .wcard--plain { transform: none; }
+}
 
 /* ---------- Footer + toast ---------- */
 .foot { background: var(--ink); color: var(--paper); text-align: center; padding: 0 16px calc(30px + env(safe-area-inset-bottom)); font-size: 13px; overflow: hidden; }
@@ -729,4 +757,90 @@ details p { margin: 8px 0 4px 26px !important; font-size: 16px !important; }
   .lab { height: 340px; }
   .paint__canvas { height: 70vh; }
   .laptop { max-width: 440px; }
+}
+
+/* ---------- 2.0: Pill Studio window ---------- */
+.studio { --accent: #ff4fa3; display: grid; gap: 10px; }
+.studio__screen { position: relative; height: 128px; border: var(--stroke); border-radius: 14px; overflow: hidden;
+  background: radial-gradient(circle at 20% 80%, #ffdd33 0 18%, transparent 19%), radial-gradient(circle at 85% 30%, #3ee6a8 0 16%, transparent 17%),
+    repeating-linear-gradient(45deg, #fff 0 10px, #ffe4f1 10px 20px); }
+.studio__pill { position: absolute; left: 50%; top: 0; transform: translateX(-50%); display: flex; align-items: center; gap: 8px;
+  width: 70%; height: 74px; padding: 22px 12px 10px; border-radius: 0 0 26px 26px; color: #fff;
+  transition: width .5s cubic-bezier(.3,1.35,.5,1), height .5s cubic-bezier(.3,1.35,.5,1), background .3s, backdrop-filter .3s; }
+.studio__pill::before { content: ""; position: absolute; left: 50%; top: 0; width: 34%; height: 16px; transform: translateX(-50%); background: #000; border-radius: 0 0 8px 8px; }
+.studio[data-size="0"] .studio__pill { width: 58%; height: 64px; }
+.studio[data-size="2"] .studio__pill { width: 84%; height: 92px; }
+.studio[data-mat="glass"] .studio__pill { background: linear-gradient(color-mix(in srgb, var(--accent) 22%, transparent), transparent), rgba(0,0,0,.25);
+  backdrop-filter: blur(12px) saturate(1.6); -webkit-backdrop-filter: blur(12px) saturate(1.6); box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
+.studio[data-mat="clear"] .studio__pill { background: rgba(0,0,0,.25); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.6); }
+.studio[data-mat="black"] .studio__pill { background: #000; }
+.studio__art { flex: none; width: 34px; height: 34px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), #3355ff); border: 1.5px solid rgba(255,255,255,.5); }
+.studio__lines { flex: 1; display: grid; gap: 6px; }
+.studio__lines i { display: block; height: 7px; border-radius: 4px; background: #fff; text-shadow: none; box-shadow: 0 0 3px rgba(0,0,0,.5); }
+.studio__lines i + i { width: 60%; opacity: .75; }
+.studio__wave { display: flex; align-items: center; gap: 3px; height: 20px; }
+.studio__wave i { width: 4px; height: 60%; border-radius: 2px; background: var(--accent); animation: wave 1s ease-in-out infinite; }
+.studio__wave i:nth-child(2) { animation-delay: -.3s; } .studio__wave i:nth-child(3) { animation-delay: -.6s; } .studio__wave i:nth-child(4) { animation-delay: -.15s; }
+@keyframes wave { 50% { height: 100%; } }
+.studio__row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 400 12px/1 var(--pixel); padding: 8px 10px; border: 2px solid var(--ink); border-radius: 999px; background: #fff; box-shadow: 2px 2px 0 var(--ink); cursor: pointer; transition: transform .12s; }
+.chip:hover { background: var(--yellow); }
+.chip:active { transform: translate(2px, 2px); box-shadow: none; }
+.chip.is-on { background: var(--ink); color: var(--paper); }
+.chip--preset { background: var(--paper); }
+
+/* ---------- 2.0: Focus window ---------- */
+.focus { display: grid; gap: 12px; }
+.focus__desk { position: relative; height: 150px; border: var(--stroke); border-radius: 14px; overflow: hidden; touch-action: none;
+  background: linear-gradient(160deg, #3355ff, #ff4fa3 70%, #ff7a1a); }
+.focus__desk::before { content: ""; position: absolute; left: 50%; top: 0; width: 64px; height: 14px; transform: translateX(-50%); background: #000; border-radius: 0 0 8px 8px; }
+.focus__float { --p: 1; --tint: #ffdd33; position: absolute; left: 50%; top: 72px; transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 8px; border-radius: 999px;
+  background: #000; color: #fff; cursor: grab; user-select: none; -webkit-user-select: none; box-shadow: 0 6px 16px rgba(0,0,0,.35);
+  transition: left .35s cubic-bezier(.3,1.3,.5,1), top .35s cubic-bezier(.3,1.3,.5,1), border-radius .25s, padding .25s; }
+.focus__float.is-drag { cursor: grabbing; transition: none; }
+.focus__float:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+.focus__float b { font: 600 15px/1 ui-monospace, "SF Mono", monospace; font-variant-numeric: tabular-nums; }
+.focus__ring { width: 24px; height: 24px; border-radius: 50%; background: conic-gradient(var(--tint) calc(var(--p) * 360deg), rgba(255,255,255,.18) 0);
+  -webkit-mask: radial-gradient(circle, transparent 7px, #000 7.5px); mask: radial-gradient(circle, transparent 7px, #000 7.5px); }
+.focus__float.is-break { --tint: #3ee6a8; }
+.focus__float.is-docked-l { border-radius: 0 999px 999px 0; padding-left: 8px; }
+.focus__float.is-docked-r { border-radius: 999px 0 0 999px; padding-right: 8px; }
+.focus__row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.focus__phase { font-size: 12px; }
+@media (prefers-reduced-motion: reduce) { .studio__wave i { animation: none; } .studio__pill, .focus__float { transition: none; } }
+
+/* ---------- Hero: centred and stacked at every width (16 Nov) ----------
+   Same order as the iPad view: kicker, title, intro, buttons, laptop, icon row. */
+.hero {
+  grid-template-columns: minmax(0, 1fr); grid-template-areas: "kick" "title" "lede" "cta" "laptop" "icons";
+  grid-template-rows: none; row-gap: 28px; justify-items: center; text-align: center;
+}
+.icons { grid-row: auto; grid-template-columns: repeat(7, 86px); justify-content: center; margin: 0; align-self: auto; }
+.kicker { justify-content: center; margin: 0; }
+.hero .mega { justify-self: stretch; }
+.hero__lede { margin: 10px auto 0; text-wrap: balance; }
+.hero__ctas { justify-content: center; }
+.laptop { max-width: 600px; }
+@media (min-width: 1101px) {
+  .hero { padding-top: calc(var(--menubar) + 70px); }
+  /* Stickers move to the two sides so none sits on the copy or the icon row. */
+  .sticker:nth-child(4) { left: 18%; top: 1%; }                  /* star: clear of the kicker */
+  .sticker:nth-child(6) { left: auto; right: 9%; top: 1%; }      /* floppy: clear of the kicker */
+  .sticker:nth-child(7) { left: 7%; top: 40%; }                  /* cassette */
+  .sticker:nth-child(2) { left: 4%; top: 57%; }                  /* 0.0% CPU */
+  .sticker:nth-child(5) { left: 9%; top: 72%; }                  /* smiley */
+  .sticker:nth-child(1) { left: auto; right: 11%; top: 55%; }    /* FREE burst */
+  .sticker:nth-child(3) { left: auto; right: 7%; top: 70%; }     /* 25 MB */
+  .sticker:nth-child(9) { left: auto; right: 2%; top: 84%; }     /* springs */
+}
+@media (min-width: 681px) and (max-width: 1100px) {
+  .sticker:nth-child(7) { display: none; }                       /* cassette: no room beside the icon row */
+  .sticker:nth-child(6) { left: 2%; top: 46%; }                  /* floppy: left of the laptop, off the kicker */
+}
+@media (max-width: 680px) {
+  .icons { grid-template-columns: repeat(4, 1fr); }
+  /* The centred title leaves room on both sides: star left of YOUR, floppy right of ALIVE! */
+  .sticker:nth-child(4) { left: 14px; right: auto; top: 168px; }
+  .sticker:nth-child(6) { left: auto; right: 4px; top: 268px; }
 }

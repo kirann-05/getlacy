@@ -56,7 +56,7 @@
       this.raf = requestAnimationFrame(this.tick);
     };
   }
-  const OPEN = { bounce: 0.26, duration: 0.5 };
+  const OPEN = { bounce: 0.22, duration: 0.5 };
   const CLOSE = { bounce: 0, duration: 0.4 };
 
   /* ---------- Clock ---------- */
@@ -276,7 +276,7 @@
   const tracks = [
     { t: "Bubblegum Sunrise", a: "The Floppy Disks", al: "Insert Disk 2", len: 238, g: ["#ff4fa3", "#b69cff", "#3355ff"], sun: "#ffdd33" },
     { t: "Dot Matrix Dreams", a: "Halftone Kids", al: "Ben-Day Nights", len: 201, g: ["#3ee6a8", "#7fd3ff", "#3355ff"], sun: "#ff4fa3" },
-    { t: "Spring Loaded", a: "Bounce 0.26", al: "Overshoot", len: 176, g: ["#ffdd33", "#ff7a1a", "#ff2e6e"], sun: "#fff6e3" },
+    { t: "Spring Loaded", a: "Bounce 0.22", al: "Overshoot", len: 176, g: ["#ffdd33", "#ff7a1a", "#ff2e6e"], sun: "#fff6e3" },
     { t: "Notch Me If You Can", a: "The Menubar Band", al: "Live at 0% CPU", len: 224, g: ["#15111f", "#3355ff", "#b69cff"], sun: "#3ee6a8" },
   ];
   // Starts paused: browsers only allow sound after a click, so play is the first thing people press.
@@ -837,4 +837,80 @@
     buf = (buf + e.key.toLowerCase()).slice(-4);
     if (buf === "lacy") { confetti(innerWidth / 2, 40, 220); peek(`<img class="mark" src="lacy-mark.svg" alt=""><b>you found me!</b><img class="mark" src="lacy-mark.svg" alt="">`, 2400); }
   });
+  /* ---------- 2.0: Pill Studio demo ---------- */
+  (() => {
+    const st = $("#studio"); if (!st) return;
+    const mats = $$("#studio [data-mat]");
+    const setMat = (m) => { st.dataset.mat = m; for (const c of mats) { const on = c.dataset.mat === m; c.classList.toggle("is-on", on); c.setAttribute("aria-pressed", on); } };
+    for (const c of mats) c.addEventListener("click", () => setMat(c.dataset.mat));
+    const presets = {
+      minimal: { mat: "black", size: "0", accent: "#ffffff" },
+      music:   { mat: "glass", size: "1", accent: "#ff4fa3" },
+      deep:    { mat: "black", size: "1", accent: "#3ee6a8" },
+      max:     { mat: "glass", size: "2", accent: "#ff7a1a" },
+    };
+    for (const c of $$("#studio [data-preset]")) c.addEventListener("click", () => {
+      const p = presets[c.dataset.preset];
+      setMat(p.mat); st.dataset.size = p.size; st.style.setProperty("--accent", p.accent);
+      peek(`<span>${ic("brush", p.accent)} Preset</span><b>${c.textContent}</b>`, 1400);
+    });
+  })();
+
+  /* ---------- 2.0: Pomodoro + floating timer demo ---------- */
+  (() => {
+    const desk = $("#focusDesk"), fl = $("#focusFloat"); if (!desk || !fl) return;
+    const timeEl = $("#focusTime"), go = $("#focusGo"), phaseEl = $("#focusPhase");
+    const LEN = { focus: 25 * 60, short: 5 * 60, long: 15 * 60 };
+    let phase = "focus", round = 1, left = LEN.focus, timer = null;
+    const fmt = (t) => `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
+    const label = () => phase === "focus" ? `focus · round ${round} of 4` : phase === "short" ? "short break" : "long break";
+    const draw = () => { timeEl.textContent = fmt(left); fl.style.setProperty("--p", left / LEN[phase]); fl.classList.toggle("is-break", phase !== "focus"); phaseEl.textContent = label(); };
+    const next = () => {
+      if (phase === "focus") phase = round % 4 === 0 ? "long" : "short";
+      else { phase = "focus"; round = round % 4 + 1; }
+      left = LEN[phase];
+      peek(phase === "focus" ? `<span>${ic("timer", "#ffdd33")} Focus</span><b>round ${round}</b>` : `<span>${ic("cup", "#3ee6a8")} Break</span><b>${phase === "long" ? "15" : "5"} min</b>`, 2000);
+    };
+    const stop = () => { clearInterval(timer); timer = null; go.textContent = "Start focus"; };
+    go.addEventListener("click", () => {
+      if (timer) return stop();
+      go.textContent = "Pause";
+      // Demo speed: a minute passes every 0.6 s.
+      timer = setInterval(() => { left = Math.max(0, left - 10); if (left === 0) next(); draw(); }, 100);
+    });
+    draw();
+
+    // left/top hold the timer's centre; it can go anywhere on the desk and docks at a side.
+    const SNAP = 30;
+    const clampY = (y) => Math.min(Math.max(y, 22 + fl.offsetHeight / 2), desk.clientHeight - fl.offsetHeight / 2 - 6);
+    const move = (x, y) => { fl.style.left = x + "px"; fl.style.top = y + "px"; fl.dataset.x = x; fl.dataset.y = y; };
+    const settle = (x, y) => {
+      const W = desk.clientWidth, w = fl.offsetWidth;
+      const dockL = x - w / 2 < SNAP, dockR = !dockL && x + w / 2 > W - SNAP;
+      fl.classList.toggle("is-docked-l", dockL); fl.classList.toggle("is-docked-r", dockR);
+      const cx = dockL ? w / 2 : dockR ? W - w / 2 : Math.min(Math.max(x, w / 2 + 6), W - w / 2 - 6);
+      move(cx, clampY(y));
+    };
+    let grab = null;
+    fl.addEventListener("pointerdown", (e) => {
+      grab = { dx: e.clientX - +fl.dataset.x, dy: e.clientY - +fl.dataset.y };
+      fl.setPointerCapture(e.pointerId); fl.classList.add("is-drag");
+    });
+    fl.addEventListener("pointermove", (e) => {
+      if (!grab) return;
+      fl.classList.remove("is-docked-l", "is-docked-r");
+      const W = desk.clientWidth, H = desk.clientHeight;
+      move(Math.min(Math.max(e.clientX - grab.dx, 0), W), Math.min(Math.max(e.clientY - grab.dy, 0), H));
+    });
+    const drop = () => { if (!grab) return; grab = null; fl.classList.remove("is-drag"); settle(+fl.dataset.x, +fl.dataset.y); };
+    fl.addEventListener("pointerup", drop); fl.addEventListener("pointercancel", drop);
+    fl.addEventListener("keydown", (e) => {
+      const step = { ArrowLeft: [-24, 0], ArrowRight: [24, 0], ArrowUp: [0, -16], ArrowDown: [0, 16] }[e.key];
+      if (!step) return; e.preventDefault();
+      settle(+fl.dataset.x + step[0], +fl.dataset.y + step[1]);
+    });
+    const home = () => settle(desk.clientWidth / 2, 72);
+    home(); addEventListener("resize", () => settle(+fl.dataset.x, +fl.dataset.y));
+  })();
+
 })();

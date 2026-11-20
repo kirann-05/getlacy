@@ -1,0 +1,34 @@
+# Lacy
+
+> Lacy is a free notch app for MacBook. It turns the notch at the top of the screen into a small, springy pill: black while it's small, Liquid Glass when it opens. It shows what's playing, your calendar, a file shelf, quick AI questions, Pomodoro, Snake and a drawer of tools. Free, no account, for macOS 14 or later.
+
+## Which Lacy to download
+
+- [Lacy 2.0](https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg): for MacBooks with a notch (MacBook Air M2 and later, 14" and 16" MacBook Pro) and the 2026 MacBook Pro.
+- [Lacy 1.1](https://github.com/kirann-05/lacy-releases/releases/download/v1.1.2-7/Lacy.dmg): for every other Mac (Intel MacBooks, M1 MacBook Air, iMac, Mac mini, external displays). It draws its own pill under the menu bar.
+
+## Features
+
+- Now playing: artwork, a waveform and playback controls in the notch, for any music or video app.
+- Lock screen player: a see-through glass card with play, pause and skip while the Mac is locked; tap the cover for a full-screen player with synced lyrics.
+- Calendar: upcoming events at a glance.
+- File shelf: drag files up to the notch to hold them, then drag them out again.
+- Ask: type a quick question to an AI from the notch.
+- Pomodoro and a floating timer you can dock to the edge of the screen.
+- Pill Studio: choose Liquid Glass, clear glass or black, the tint and size, and what sits beside the notch; presets Minimal, Music, Deep Work and Maximal.
+- Volume and brightness HUDs, battery and AirPods alerts, a colour picker and other tools.
+- Snake, played in the notch.
+
+## Good to know
+
+- Price: free. No account.
+- Privacy: the app collects nothing and has no analytics. It looks up sharper album covers and, if turned on, lyrics from LRCLIB using the song's title and artist.
+- Performance: idles at 0.0% CPU and about 25 MB of memory.
+- Full screen: the notch turns invisible over full-screen apps until you point at it.
+- First launch: Lacy isn't notarized by Apple yet. Right-click Lacy in Applications, choose Open, then Open again.
+- Updates arrive inside the app.
+
+## Links
+
+- [Website](https://kirann-05.github.io/getlacy/)
+- [Releases](https://github.com/kirann-05/lacy-releases/releases)

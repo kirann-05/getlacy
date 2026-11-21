@@ -5,7 +5,7 @@
 ## Which Lacy to download
 
 - [Lacy 2.0](https://github.com/kirann-05/lacy-releases/releases/latest/download/Lacy.dmg): for MacBooks with a notch (MacBook Air M2 and later, 14" and 16" MacBook Pro) and the 2026 MacBook Pro.
-- [Lacy 1.1](https://github.com/kirann-05/lacy-releases/releases/download/v1.1.2-7/Lacy.dmg): for every other Mac (Intel MacBooks, M1 MacBook Air, iMac, Mac mini, external displays). It draws its own pill under the menu bar.
+- [Lacy 1.1](https://github.com/kirann-05/lacy-releases/releases/download/v1.1.3-7.1/Lacy.dmg): for every other Mac (Intel MacBooks, M1 MacBook Air, iMac, Mac mini, external displays). It draws its own pill under the menu bar.
 
 ## Features
 
